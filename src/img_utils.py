@@ -24,4 +24,4 @@ def read_images_in_dir(datadir, img_height, img_width):
 
 
 def transform_images(img_list):
-    return img_list.astype('float32')/255.
+    return np.array(img_list).astype('float32')/255.
