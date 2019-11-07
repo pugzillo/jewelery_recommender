@@ -13,7 +13,7 @@ Linh Chau
 """
 
 # Reads in images in a directory; expects only imgs in a directory
-def read_images_in_dir(datadir, img_height, img_width)):
+def read_images_in_dir(datadir, img_height, img_width):
     images = []
     for i in tqdm(os.listdir(datadir)):
         path = os.path.join(datadir, i)
