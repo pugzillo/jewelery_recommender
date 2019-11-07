@@ -51,11 +51,11 @@ class Autoencoder():
         # at this point the representation is (4, 4, 8) i.e. 128-dimensional if input (width = 28, height = 28, channel= 3)
 
         x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(encoded)
-        x = UpSampling2D(pool_kernal(x)
+        x = UpSampling2D(pool_kernal, padding='same')(x)
         x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(x)
-        x = UpSampling2D(pool_kernal(x)
+        x = UpSampling2D(pool_kernal, padding='same')(x)
         x = Conv2D(hidden_1, con_kernal, activation='relu')(x)
-        x = UpSampling2D(pool_kernal(x)
+        x = UpSampling2D(pool_kernal, padding='same')(x)
         decoded = Conv2D(img_channel, con_kernal, activation='sigmoid', padding='same')(x)
 
         # autoencoder model 
@@ -66,6 +66,8 @@ class Autoencoder():
 
         # decoder model
         self.decoder = Model(input_img, encoded)
+
+        print(self.autoencoder.summary())
         
     
  
