@@ -21,7 +21,7 @@ class Autoencoder():
                             validation_data = (X_test, X_test),
                             batch_size = batch_size,
                             epochs = n_epochs, 
-                            verbose = 1
+                            # verbose = 1
         )
 
     def encoder_predict(self, X):
@@ -37,7 +37,7 @@ class Autoencoder():
         """
 
         input_img = Input(shape=(img_width, img_height, img_channel))  # adapt this if using `channels_first` image data format
-        hidden_1, hidden_2 = 16, 8
+        hidden_1, hidden_2, hidden_3, hidden_4 = 16, 32, 64, 128
         con_kernal = (3,3) # convolution kernal
         pool_kernal = (2,2) #pooling kernal
 
@@ -45,17 +45,21 @@ class Autoencoder():
         x = MaxPooling2D(pool_kernal, padding='same')(x)
         x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(x)
         x = MaxPooling2D(pool_kernal, padding='same')(x)
-        x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(x)
+        x = Conv2D(hidden_3, con_kernal, activation='relu', padding='same')(x)
+        x = MaxPooling2D(pool_kernal, padding='same')(x)
+        x = Conv2D(hidden_4, con_kernal, activation='relu', padding='same')(x)
         encoded = MaxPooling2D(pool_kernal, padding='same')(x)
 
         # at this point the representation is (4, 4, 8) i.e. 128-dimensional if input (width = 28, height = 28, channel= 3)
 
-        x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(encoded)
-        x = UpSampling2D(pool_kernal, padding='same')(x)
+        x = Conv2D(hidden_4, con_kernal, activation='relu', padding='same')(encoded)
+        x = UpSampling2D(pool_kernal)(x)
+        x = Conv2D(hidden_3, con_kernal, activation='relu', padding='same')(x)
+        x = UpSampling2D(pool_kernal)(x)
         x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(x)
-        x = UpSampling2D(pool_kernal, padding='same')(x)
-        x = Conv2D(hidden_1, con_kernal, activation='relu')(x)
-        x = UpSampling2D(pool_kernal, padding='same')(x)
+        x = UpSampling2D(pool_kernal)(x)
+        x = Conv2D(hidden_1, con_kernal, activation='relu', padding='same')(x)
+        x = UpSampling2D(pool_kernal)(x)
         decoded = Conv2D(img_channel, con_kernal, activation='sigmoid', padding='same')(x)
 
         # autoencoder model 
