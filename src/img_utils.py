@@ -4,6 +4,13 @@ import os
 from tqdm import tqdm
 import skimage.io
 
+"""
+img_utils.py 
+
+Functions useful when reading in images for cnn autoencoder >> knn for image similarity retrival
+
+Linh Chau
+"""
 
 # Reads in images in a directory; expects only imgs in a directory
 def read_images_in_dir(datadir, img_height, img_width)):
