@@ -37,24 +37,21 @@ class Autoencoder():
         """
 
         input_img = Input(shape=(img_width, img_height, img_channel))  # adapt this if using `channels_first` image data format
-        hidden_1, hidden_2, hidden_3, hidden_4 = 16, 32, 64, 128
+        hidden_1, hidden_2, hidden_3 = 16, 8, 8
         con_kernal = (3,3) # convolution kernal
         pool_kernal = (2,2) #pooling kernal
 
+        # inputs 256x256x4
         x = Conv2D(hidden_1, con_kernal, activation='relu', padding='same')(input_img)
         x = MaxPooling2D(pool_kernal, padding='same')(x)
         x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(x)
         x = MaxPooling2D(pool_kernal, padding='same')(x)
         x = Conv2D(hidden_3, con_kernal, activation='relu', padding='same')(x)
-        x = MaxPooling2D(pool_kernal, padding='same')(x)
-        x = Conv2D(hidden_4, con_kernal, activation='relu', padding='same')(x)
         encoded = MaxPooling2D(pool_kernal, padding='same')(x)
 
-        # at this point the representation is (4, 4, 8) i.e. 128-dimensional if input (width = 28, height = 28, channel= 3)
+        # Now 16x16x128
 
-        x = Conv2D(hidden_4, con_kernal, activation='relu', padding='same')(encoded)
-        x = UpSampling2D(pool_kernal)(x)
-        x = Conv2D(hidden_3, con_kernal, activation='relu', padding='same')(x)
+        x = Conv2D(hidden_3, con_kernal, activation='relu', padding='same')(encoded)
         x = UpSampling2D(pool_kernal)(x)
         x = Conv2D(hidden_2, con_kernal, activation='relu', padding='same')(x)
         x = UpSampling2D(pool_kernal)(x)
