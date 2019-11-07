@@ -22,8 +22,8 @@ Linh Chau
 train_dir = 'data/training/earrings'
 test_dir = 'data/testing/earrings'
 
-img_height = 256
-img_width = 256
+img_height = 100
+img_width = 100
 img_channel = 3 #RGB
 
 # Get images from the directories
@@ -58,6 +58,7 @@ encoded_test_flat = encoded_test.reshape((-1, np.prod(encoded_test.shape[1:])))
 ## Save model in pickle
 pickle_name = 'jewelry_cnn_autoencoder_test.sav'
 pickle.dump(knn, open(pickle_name, 'wb'))
+
 
 
 ##KNN to find items similar to a test image
