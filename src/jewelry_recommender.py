@@ -39,6 +39,27 @@ autoencoder.fit(train_data, test_data)
 encoded_train = autoencoder.predict(train_data)
 encoded_test = autoencoder.predict(test_data)
 
-#3 flatten the encoded img, so they are the shape (#imgs, height*width*channels of output of encoder)- input for KNN
+## flatten the encoded img, so they are the shape (#imgs, height*width*channels of output of encoder)- input for KNN
 encoded_train_flat = encoded_train.reshape((-1, np.prod(encoded_train.shape[1:])))
 encoded_test_flat = encoded_test.reshape((-1, np.prod(encoded_test.shape[1:])))
+
+
+##KNN to find items similar to a test image
+
+# Making Training set with the encoded training layer
+knn = NearestNeighbors(n_neighbors=5, metric="cosine")
+knn.fit(encoded_train_flat)
+
+test_img = 7
+
+# Predict KNN for a test image
+distances, indices = knn.kneighbors(encoded_train_flat[test_img].reshape(1, -1))
+
+# print n_neighbors of the test image
+fig= plt.figure(figsize=(8, 8))
+columns = 3
+rows = 2
+for i, idx in zip(range(1, columns*rows +1), np.nditer(indices)):
+    fig.add_subplot(rows, columns, i)
+    plt.imshow(tr_img_data[idx].reshape(28, 28, 3))
+plt.show()
