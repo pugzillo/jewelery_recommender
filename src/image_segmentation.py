@@ -7,7 +7,6 @@ from os.path import isfile, join
 import os
 from pathlib import Path
 import errno
-import multiprocessing
 
 
 """
@@ -68,9 +67,8 @@ def get_biggest_two_bounding(path, output_dir):
 
 
 datasets = {
-    'testing':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing/earrings',
-    'validation':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/validation/earrings',
-    'training':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training/earrings'
+    'testing':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing_full/earrings',
+    'training':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training_full/earrings'
 }
 
 # do segmentation for all images in the following directories
