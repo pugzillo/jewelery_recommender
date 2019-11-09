@@ -7,6 +7,7 @@ from os.path import isfile, join
 import os
 from pathlib import Path
 import errno
+import multiprocessing
 
 
 """
@@ -17,11 +18,10 @@ Takes in images of jewelry (or whatever) and returns images of the top two bound
 Linh Chau
 """
 
-import re
-
 def get_biggest_two_bounding(path, output_dir):
     img = cv2.imread(path)
     image_id = re.split('[./]', path)[-2]
+    print(image_id)
     
     # blur and grayscale before thresholding
     blur = cv2.cvtColor(src = img, code = cv2.COLOR_BGR2GRAY)
@@ -52,13 +52,19 @@ def get_biggest_two_bounding(path, output_dir):
         x,y,w,h = cv2.boundingRect(cont)
         area = w*h
         cont_dimen[area] = list([x,y,w,h])
+    
+    if not os.path.isdir(output_dir) :
+        os.mkdir(output_dir)  # make sure the directory exists
 
     for i, box in zip(range(1,3),sorted(cont_dimen)[-2:]):
+        print('Entering forloop')
         x,y,w,h = cont_dimen[box]
         roi=img[y:y+h+100,x:x+w+100]
+
         file_name = f'{output_dir}/{image_id}_{i}.jpg'
         if not cv2.imwrite(file_name, roi):
             raise Exception(f'could not write image for {filename}')
+        print('end for forloop')
 
 
 datasets = {
