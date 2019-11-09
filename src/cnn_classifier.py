@@ -7,6 +7,7 @@ from keras.optimizers import RMSprop, Adam
 from keras.callbacks import CSVLogger
 from livelossplot import PlotLossesKeras
 from keras.models import Sequential
+from src.img_utils import image_to_imagedatagen
 
 """
 cnn_classifier.py  
@@ -18,7 +19,7 @@ class CNN_Classifier():
         self.classifier = None
         self.log_file = None
 
-    def fit(self, X_train, X_test, batch_size = 32, n_epochs = 10):
+    def fit(self, X_train, X_test, batch_size = 32, n_epochs = 300):
         self.log_file = f'{X_train}_cnnclassifier_log.csv'
         self.classifier.fit(X_train,
                             validation_data = X_test,
@@ -69,3 +70,15 @@ class CNN_Classifier():
         return self.classifier.evaluate_generator(X)
 
 
+datasets = {
+    'test':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing/earrings',
+    'validation':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/validation/earrings',
+    'train':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training/earrings'
+}
+
+key_to_generator = {k: image_to_imagedatagen(v) for k,v in datasets.items()}
+
+model = CNN_Classifier()
+model.set_architecture(img_width, img_height, 3)
+model.compile()
+model.fit(key_to_generator['train'], key_to_generator['test'])
