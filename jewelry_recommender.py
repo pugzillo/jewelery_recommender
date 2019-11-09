@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 import pickle
-from src.img_utils import read_images_in_dir, transform_images
+from src.img_utils import read_images_in_dir, transform_images, price_filter
 from src.autoencoder import Autoencoder
 import logging
 
@@ -19,14 +19,14 @@ Linh Chau
 
 # Hyperparameter
 # Directories with Data
-train_dir = 'data/training/necklaces'
-test_dir = 'data/testing/necklaces'
+train_dir = 'data/training_full/necklaces'
+test_dir = 'data/training_full/necklaces'
 
 img_height = 100
 img_width = 100
 img_channel = 3 #RGB
 
-price_limit = 500
+price_limit = 100
 
 
 ### Processing Images 
