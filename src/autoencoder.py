@@ -16,7 +16,7 @@ class Autoencoder():
         self.encoder = None
         self.decoder = None
 
-    def fit(self, X_train, X_test, batch_size = 32, n_epochs = 50):
+    def fit(self, X_train, X_test, batch_size = 256, n_epochs = 500):
         self.autoencoder.fit(X_train, X_train,
                             validation_data = (X_test, X_test),
                             batch_size = batch_size,
