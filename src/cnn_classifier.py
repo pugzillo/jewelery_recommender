@@ -1,11 +1,12 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D
+from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D
 from keras.models import Model
-from keras.optimizers import Adam
+from keras.optimizers import RMSprop, Adam
 from keras.callbacks import CSVLogger
 from livelossplot import PlotLossesKeras
+from keras.models import Sequential
 
 """
 cnn_classifier.py  
@@ -17,8 +18,7 @@ class CNN_Classifier():
         self.classifier = None
         self.log_file = None
 
-
-    def fit(self, X_train, X_test, batch_size = 32, n_epochs = 50):
+    def fit(self, X_train, X_test, batch_size = 32, n_epochs = 10):
         self.log_file = f'{X_train}_cnnclassifier_log.csv'
         self.classifier.fit(X_train,
                             validation_data = X_test,
@@ -44,26 +44,26 @@ class CNN_Classifier():
         """
         input_shape = (img_width, img_height, img_channel)
 
-        x = Sequential()
+        self.classifier = Sequential()
 
-        x.add(Conv2D(32, (3, 3), input_shape=input_shape))
-        x.add(Activation('relu'))
-        x.add(MaxPooling2D(pool_size=(2, 2)))
+        self.classifier.add(Conv2D(32, (3, 3), input_shape=input_shape))
+        self.classifier.add(Activation('relu'))
+        self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
-        x.add(Conv2D(64, (3, 3)))
-        x.add(Activation('relu'))
-        x.add(MaxPooling2D(pool_size=(2, 2)))
+        self.classifier.add(Conv2D(64, (3, 3)))
+        self.classifier.add(Activation('relu'))
+        self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
-        x.add(Conv2D(128, (3, 3)))
-        x.add(Activation('relu'))
-        x.add(MaxPooling2D(pool_size=(2, 2)))
+        self.classifier.add(Conv2D(128, (3, 3)))
+        self.classifier.add(Activation('relu'))
+        self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
-        x.add(Flatten())
-        x.add(Dense(128))
-        x.add(Activation('relu'))
-        x.add(Dropout(0.5))
-        x.add(Dense(1))
-        x.add(Activation('sigmoid'))
+        self.classifier.add(Flatten())
+        self.classifier.add(Dense(128))
+        self.classifier.add(Activation('relu'))
+        self.classifier.add(Dropout(0.5))
+        self.classifier.add(Dense(1))
+        self.classifier.add(Activation('sigmoid'))
 
     def metrics(self, X):
         return self.classifier.evaluate_generator(X)
