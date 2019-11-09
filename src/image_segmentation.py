@@ -5,6 +5,8 @@ import re
 from os import listdir
 from os.path import isfile, join
 import os
+from pathlib import Path
+import errno
 
 
 """
@@ -54,7 +56,6 @@ def get_biggest_two_bounding(path, output_dir):
     for i, box in zip(range(1,3),sorted(cont_dimen)[-2:]):
         x,y,w,h = cont_dimen[box]
         roi=img[y:y+h+100,x:x+w+100]
-        fig.add_subplot(rows, columns, i)
         file_name = f'{output_dir}/{image_id}_{i}.jpg'
         if not cv2.imwrite(file_name, roi):
             raise Exception(f'could not write image for {filename}')
@@ -70,11 +71,10 @@ datasets = {
 for dataset, PATH in datasets.items():
     file_list = [f for f in listdir(PATH) if isfile(join(PATH, f))]
 
-    output_dir = f'data/{dataset}/segmented_earrings'
-    print(output_dir)
+    output_dir = Path(f'data/{dataset}/segmented_earrings')
+    # print(output_dir)
 
-    if not os.path.isdir(output_dir) :
-        os.mkdir(output_dir)  # make sure the directory exists
+    os.makedirs(output_dir, exist_ok=True)
 
     for file in file_list:
         get_biggest_two_bounding(f'{PATH}/{file}', output_dir)
