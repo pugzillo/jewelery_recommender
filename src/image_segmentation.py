@@ -7,7 +7,12 @@ from os.path import isfile, join
 import os
 from pathlib import Path
 import errno
+import logging
 
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.INFO,
+)
 
 """
 image_segmentation.py
@@ -15,6 +20,8 @@ image_segmentation.py
 Takes in images of jewelry (or whatever) and returns images of the top two bounding boxes (by area)
 
 Linh Chau
+
+TODO: Add something to catch errors for line 33, some images might be corrupt.
 """
 
 def get_biggest_two_bounding(path, output_dir):
@@ -56,23 +63,24 @@ def get_biggest_two_bounding(path, output_dir):
         os.mkdir(output_dir)  # make sure the directory exists
 
     for i, box in zip(range(1,3),sorted(cont_dimen)[-2:]):
-        print('Entering forloop')
+        logging.info(f"Processing Images from {image_id}")
         x,y,w,h = cont_dimen[box]
         roi=img[y:y+h+100,x:x+w+100]
 
         file_name = f'{output_dir}/{image_id}_{i}.jpg'
         if not cv2.imwrite(file_name, roi):
             raise Exception(f'could not write image for {filename}')
-        print('end for forloop')
+
 
 
 datasets = {
-    'testing':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing_full/earrings',
-    'training':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training_full/earrings'
+    'testing_full':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing_full/earrings',
+    'training_full':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training_full/earrings'
 }
 
 # do segmentation for all images in the following directories
 for dataset, PATH in datasets.items():
+    logging.info(f"Reading and Processing Images from {PATH}")
     file_list = [f for f in listdir(PATH) if isfile(join(PATH, f))]
 
     output_dir = Path(f'data/{dataset}/segmented_earrings')
