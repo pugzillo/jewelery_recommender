@@ -19,7 +19,7 @@ def read_images_in_dir(datadir, img_height, img_width):
     image_ids = []
     for i in tqdm(os.listdir(datadir)):
         path = os.path.join(datadir, i)
-        image_ids.append(os.path.basename(path))
+        image_ids.append(os.path.splitext(os.path.basename(path))[0])
         img = cv2.imread(path, cv2.IMREAD_COLOR)
         img = cv2.resize(img, (img_height, img_width))
         images.append(np.array(img))
@@ -42,3 +42,18 @@ def image_to_imagedatagen(dir):
         class_mode = class_mode
     )
     return(generator)
+
+# filters the price of the neighbooring images
+def price_filter(neighbors, product_ids, product_data, price_limit):
+    filtered_products = []
+    product_prices = []
+    product_urls = []
+    for neighbor in neighbors:
+        product_id = product_ids[neighbor]
+        price = float(product_data[product_data['id'] == int(product_id)]['price'])
+        url = str(product_data[product_data['id'] == int(product_id)]['clickUrl'])
+        if price < price_limit:
+            filtered_products.append(neighbor)
+            product_prices.append(price)
+            product_urls.append(url)
+    return filtered_products, product_prices, product_urls 
