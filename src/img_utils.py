@@ -19,11 +19,11 @@ def read_images_in_dir(datadir, img_height, img_width):
     image_ids = []
     for i in tqdm(os.listdir(datadir)):
         path = os.path.join(datadir, i)
-        image_ids.append(re.split('[/.]', i)[3])
+        image_ids.append(os.path.basename(path))
         img = cv2.imread(path, cv2.IMREAD_COLOR)
         img = cv2.resize(img, (img_height, img_width))
         images.append(np.array(img))
-    return images, image_ids # returns list of resized images
+    return images, image_ids 
 
 
 def transform_images(img_list):
