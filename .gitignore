@@ -3,3 +3,5 @@ data/
 .gitignore
 .ipynb_checkpoints/
 models/
+images/
+testing_nbs/
