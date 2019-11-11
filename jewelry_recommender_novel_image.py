@@ -20,7 +20,7 @@ logging.basicConfig(
 )
 
 """
-jewelry_recommender.py  
+jewelry_recommender_novel_image.py  
 Linh Chau
 """
 ## Hyperparameters
@@ -55,12 +55,12 @@ probabilities = jewelry_classifier.predict(new_images)
 # ### Training set differs with type of jewelry
 if np.average(probabilities) > 0.5:  
     train_dir = 'data/training_full/segmented_earrings'
-    encoder_model = 'models/jewelry_cnn_encoder_earrings_test.pkl'
-    knn_model = 'models/jewelry_knn_earrings_test.pkl'
+    encoder_model = 'models/jewelry_cnn_encoder_earrings_final.pkl'
+    knn_model = 'models/jewelry_knn_earrings_final.pkl'
 else:
     train_dir = 'data/training_full/necklaces'
-    encoder_model = 'models/jewelry_cnn_autoencoder_necklaces_test.pkl'
-    knn_model = 'models/jewelry_knn_necklaces_test.pkl'
+    encoder_model = 'models/jewelry_cnn_autoencoder_necklaces_final.pkl'
+    knn_model = 'models/jewelry_knn_necklaces_final.pkl'
 
 
 ### Decrease Features with Autoencoding 
