@@ -7,6 +7,8 @@ Jewelry is an important part of an outfit. However, compared to other wardrobe p
 
 First, I created an image classifier with a convolutional neural network to identify what type of jewelry the input image is. Then I use an autoencoder convolutional neural network to reduce the input image to a specific set of features. The reduced features are used as input into a knn to identify jewelry in the training set that are similar visually and are in a specific price range. 
 
+![Image Recommender Pipeline](https://github.com/pugzillo/jewelery_recommender/blob/master/images/Jewelry_pipeline.jpg "Image Recommender Pipeline")
+
 
 ## Data
 Scraped images and metadata for earrings (N = 9401) and necklaces (N = 6937) from [ShopStyle](https://www.shopstyle.com/ "Shop Style"). 90% of earrings and necklaces were used for the training set (N = 23,155) and 10% of each type were used for the testing set. 
@@ -21,7 +23,7 @@ The model was ran for 15 epochs.
 ![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_classifier_model_loss_graph.png "Log Loss for CNN Classifier")
 
 
-## CNN Autoencoder
+## Image Feature Reduction with CNN Autoencoder
 A convolutional neural network autoencoder was used to reduce the dimensions of each training and input image. 
 
 ![CNN Autoencoder](https://github.com/pugzillo/jewelery_recommender/blob/master/images/cnn_autencoder_model_final.png "Architecture CNN Autoencoder")
