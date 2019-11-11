@@ -14,20 +14,27 @@ First, I created an image classifier with a convolutional neural network to iden
 Scraped images and metadata for earrings (N = 9401) and necklaces (N = 6937) from [ShopStyle](https://www.shopstyle.com/ "Shop Style"). 90% of earrings and necklaces were used for the training set (N = 23,155) and 10% of each type were used for the testing set. 
 
 ## Building a Jewelry Classifier with a CNN Classifier
-A convolutional neural network (CNN) was used to identify if an image contained a necklace or earring. For training of the CNN, segmentation was performed on earring images given that they come in pairs. Images were converted to RGB and resized to 100x100.
+A convolutional neural network (CNN) was used to identify if an image contained a necklace or earring. For training of the CNN, segmentation with cv2 library was performed on earring images given that they come in pairs. The background for earring images was masked out and then I identified the contours of the images, which were converted to bounding boxes. The top two bounding boxes were then selected as input for the earring training set. 
+
+All images were converted to RGB and resized to 100x100.
 
 The model was ran for 15 epochs.
 
+### CNN Classifier Architecture
 ![CNN Classifer architecture](https://github.com/pugzillo/jewelery_recommender/blob/master/images/jewelry_cnn_classifier_final.png "Architecture CNN Classifier")
 
+### CNN Classifier Evaluation
 ![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_classifier_model_loss_graph.png "Log Loss for CNN Classifier")
 
+There is some oscillation in the log loss graph, which may suggest that there is high confidence in misclassified images. Therefore, this is a place for improvement in this classifer model.
 
 ## Image Feature Reduction with CNN Autoencoder
 A convolutional neural network autoencoder was used to reduce the dimensions of each training and input image. 
 
+### CNN Autoencoder Architecture
 ![CNN Autoencoder](https://github.com/pugzillo/jewelery_recommender/blob/master/images/cnn_autencoder_model_final.png "Architecture CNN Autoencoder")
 
+### CNN Autoencoder Evaluation
 ![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_autoencoder_model_loss.png "Log Loss for CNN Autoencoder")
 
 
