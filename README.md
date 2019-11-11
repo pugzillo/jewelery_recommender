@@ -18,7 +18,7 @@ The model was ran for 15 epochs.
 
 ![CNN Classifer architecture](https://github.com/pugzillo/jewelery_recommender/blob/master/images/jewelry_cnn_classifier_final.png "Architecture CNN Classifier")
 
-![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_classifier_model_loss.pdf "Log Loss for CNN Classifier")
+![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_classifier_model_loss_graph.png "Log Loss for CNN Classifier")
 
 
 ## CNN Autoencoder
@@ -34,7 +34,7 @@ A convolutional neural network autoencoder was used to reduce the dimensions of 
 K-nearst neighbors was used to identify images, with reduced features from the cnn autoencoder, that are similar to the input image. The **cosine similarity** will be calculated to find images of jewelry that are similar to the input that fall below a certain price.
 
 ## Running pipeline for a novel image
-python3 jewelry_recommender_novel_image.py 
+`python3 jewelry_recommender_novel_image.py`
 
 ## Conclusions and Future Work
 Even though I had a small set of training images, I was about to build a recommender using a KNN algorithm with features created by the dimension reduction capabilites of a CNN autoencoder. This allows users to input pictures of jewelry that they are interested in and get similar pieces in a certain price range with links for purchase. 
