@@ -30,7 +30,7 @@ img_channel = 3 #RGB
 
 price_limit = 100
 
-image_path = 'data/earrings_full_training/794612301.jpg'
+image_path = 'data/earrings_full_training/780112102.jpg'
 image_file = re.split('[./]', image_path)[-2]
 
 classifer_model = 'models/jewelry_final_cnn_classifer.pkl'
@@ -101,7 +101,7 @@ columns = 2
 rows = 2
 for i, idx in zip(range(0, columns*rows), filtered_products):
     fig.add_subplot(rows, columns, i+1)
-    plt.imshow(read_novel_image(product_images[i], 256, 256))
+    plt.imshow(read_novel_image(product_images[i], 100, 100))
     plt.title(f'Price: {product_prices[i]}\n URL: {product_urls[i]}')
 plt.show()
 

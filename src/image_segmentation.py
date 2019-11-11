@@ -62,6 +62,8 @@ def get_biggest_two_bounding(path, output_dir):
     if not os.path.isdir(output_dir) :
         os.mkdir(output_dir)  # make sure the directory exists
 
+    images = []
+
     for i, box in zip(range(1,3),sorted(cont_dimen)[-2:]):
         logging.info(f"Processing Images from {image_id}")
         x,y,w,h = cont_dimen[box]
@@ -70,23 +72,25 @@ def get_biggest_two_bounding(path, output_dir):
         file_name = f'{output_dir}/{image_id}_{i}.jpg'
         if not cv2.imwrite(file_name, roi):
             raise Exception(f'could not write image for {filename}')
+        images.append(file_name)
+    return(images[0], images[1])
 
 
 
-datasets = {
-    'testing_full':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing_full/earrings',
-    'training_full':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training_full/earrings'
-}
+# datasets = {
+#     'testing_full':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/testing_full/earrings',
+#     'training_full':'/Users/linhchau/Desktop/galvanize/jewelery_recommender/data/training_full/earrings'
+# }
 
-# do segmentation for all images in the following directories
-for dataset, PATH in datasets.items():
-    logging.info(f"Reading and Processing Images from {PATH}")
-    file_list = [f for f in listdir(PATH) if isfile(join(PATH, f))]
+# # do segmentation for all images in the following directories
+# for dataset, PATH in datasets.items():
+#     logging.info(f"Reading and Processing Images from {PATH}")
+#     file_list = [f for f in listdir(PATH) if isfile(join(PATH, f))]
 
-    output_dir = Path(f'data/{dataset}/segmented_earrings')
-    # print(output_dir)
+#     output_dir = Path(f'data/{dataset}/segmented_earrings')
+#     # print(output_dir)
 
-    os.makedirs(output_dir, exist_ok=True)
+#     os.makedirs(output_dir, exist_ok=True)
 
-    for file in file_list:
-        get_biggest_two_bounding(f'{PATH}/{file}', output_dir)
+#     for file in file_list:
+#         get_biggest_two_bounding(f'{PATH}/{file}', output_dir)

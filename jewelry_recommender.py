@@ -6,6 +6,7 @@ import pickle
 from src.img_utils import read_images_in_dir, transform_images, price_filter
 from src.autoencoder import Autoencoder
 import logging
+from src.cnn_classifier import CNN_Classifier
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
