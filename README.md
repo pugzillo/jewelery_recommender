@@ -16,11 +16,15 @@ A convolutional neural network (CNN) was used to identify if an image contained 
 
 The model was ran for 15 epochs.
 
+![CNN Classifer architecture](https://github.com/pugzillo/jewelery_recommender/blob/master/images/jewelry_cnn_classifier_final.png "Architecture CNN Classifier")
+
 ![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_classifier_model_loss.pdf "Log Loss for CNN Classifier")
 
 
 ## CNN Autoencoder
 A convolutional neural network autoencoder was used to reduce the dimensions of each training and input image. 
+
+![CNN Autoencoder](https://github.com/pugzillo/jewelery_recommender/blob/master/images/cnn_autencoder_model_final.png "Architecture CNN Autoencoder")
 
 ![alt text](https://github.com/pugzillo/jewelery_recommender/blob/master/images/CNN_autoencoder_model_loss.png "Log Loss for CNN Autoencoder")
 
