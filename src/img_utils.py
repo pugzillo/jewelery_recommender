@@ -4,6 +4,7 @@ import os
 from tqdm import tqdm
 import skimage.io
 from keras.preprocessing.image import ImageDataGenerator
+import re
 
 """
 img_utils.py 
@@ -49,7 +50,7 @@ def image_to_imagedatagen(dir, img_width = 100, img_height = 100, batch_size = 3
     )
     return(generator)
 
-# filters the price of the neighbooring images
+# filters the price of the neighbooring images 
 def price_filter(neighbors, product_ids, product_data, price_limit):
     filtered_products = []
     product_prices = []
@@ -63,3 +64,20 @@ def price_filter(neighbors, product_ids, product_data, price_limit):
             product_prices.append(price)
             product_urls.append(url)
     return filtered_products, product_prices, product_urls 
+
+# filters the price of the neighbooring images
+def price_filter_novel(neighbors, product_ids, product_data, price_limit=100):
+    filtered_products = []
+    product_prices = []
+    product_urls = []
+    product_images = []
+    for neighbor in neighbors:
+        product_id = re.split('_',product_ids[neighbor])[0]
+        price = float(product_data[product_data['id'] == int(product_id)]['price'])
+        url = product_data[product_data['id'] == int(product_id)]['clickUrl']
+        if price < price_limit:
+            filtered_products.append(neighbor)
+            product_prices.append(price)
+            product_urls.append(url)
+            product_images.append(f'data/data/{product_id}.jpg')
+    return (filtered_products, product_prices, product_urls, product_images)
