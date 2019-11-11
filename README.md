@@ -1,4 +1,4 @@
-# Jewelry Recommender
+# Hack your Look: An Image-based Jewelry Recommender
 
 by Linh Chau (https://www.linkedin.com/in/linhchau/)
 
