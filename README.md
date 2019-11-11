@@ -33,7 +33,7 @@ A convolutional neural network autoencoder was used to reduce the dimensions of 
 
 ## Building a Recommender with KNN
 
-K-nearst neighbors was used to identify images, with reduced features from the cnn autoencoder, that are similar to the input image. The **cosine similarity** will be calculated to find images of jewelry that are similar to the input that fall below a certain price.
+K-nearst neighbors was used to identify images, with reduced features from the cnn autoencoder, that are similar to the input image. The **cosine similarity** was used as the distance measure. Once the closest neighbors were identified, a price filter was applied. 
 
 ## Running pipeline for a novel image
 `python3 jewelry_recommender_novel_image.py`
