@@ -19,8 +19,8 @@ Linh Chau
 
 # Hyperparameter
 # Directories with Data
-train_dir = 'data/training_full/necklaces'
-test_dir = 'data/training_full/necklaces'
+train_dir = 'data/training_full/segmented_earrings'
+test_dir = 'data/testing_full/segmented_earrings'
 
 img_height = 100
 img_width = 100
@@ -61,7 +61,7 @@ encoded_train_flat = encoded_train.reshape((-1, np.prod(encoded_train.shape[1:])
 encoded_test_flat = encoded_test.reshape((-1, np.prod(encoded_test.shape[1:])))
 
 ## Save model in pickle
-pickle_names = ['jewelry_cnn_encoder_necklaces_test.pkl', 'jewelry_cnn_autoencoder_necklaces_test.pkl', 'jewelry_cnn_decoder_necklaces_test.pkl']
+pickle_names = ['jewelry_cnn_encoder_earrings_test.pkl', 'jewelry_cnn_autoencoder_earrings_test.pkl', 'jewelry_cnn_earrings_test.pkl']
 autoencoder_models = [autoencoder.encoder, autoencoder.autoencoder, autoencoder.decoder]
 
 for model, pickles in zip(autoencoder_models, pickle_names):
@@ -75,7 +75,7 @@ logging.info('Finding Similar items to input')
 knn = NearestNeighbors(n_neighbors=10, metric="cosine")
 knn.fit(encoded_train_flat)
 
-pickle_name = 'jewelry_knn_necklaces_test.pkl'
+pickle_name = 'jewelry_knn_earrings_test.pkl'
 pickle.dump(knn, open(pickle_name, 'wb'))
 
 test_img = 7
@@ -100,7 +100,7 @@ rows = 2
 for i, idx in zip(range(1, columns*rows +1), filtered_products):
     fig.add_subplot(rows, columns, i)
     plt.imshow(train_data[idx].reshape(img_height, img_width, img_channel))
-    plt.title(f'Price: {product_prices[i]}')
+    plt.title(f'Price: {product_prices[i-1]}')
 plt.show()
 
 
