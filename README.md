@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Hack your Look: An Image-based Jewelry Recommender](#hack-your-look-an-image-based-jewelry-recommender)
+  - [Data](#data)
+  - [Building a Jewelry Classifier with a CNN Classifier](#building-a-jewelry-classifier-with-a-cnn-classifier)
+    - [CNN Classifier Architecture](#cnn-classifier-architecture)
+    - [CNN Classifier Evaluation](#cnn-classifier-evaluation)
+  - [Image Feature Reduction with CNN Autoencoder](#image-feature-reduction-with-cnn-autoencoder)
+    - [CNN Autoencoder Architecture](#cnn-autoencoder-architecture)
+    - [CNN Autoencoder Evaluation](#cnn-autoencoder-evaluation)
+  - [Building a Recommender with KNN](#building-a-recommender-with-knn)
+  - [Running pipeline for a novel image](#running-pipeline-for-a-novel-image)
+  - [Conclusions and Future Work](#conclusions-and-future-work)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Hack your Look: An Image-based Jewelry Recommender
 
 by Linh Chau (https://www.linkedin.com/in/linhchau/)
